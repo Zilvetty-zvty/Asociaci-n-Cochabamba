@@ -1,35 +1,22 @@
 let data = {};
+let teamsData = {};
 
 // Cargar datos JSON
 async function loadData() {
     try {
+        // Cargar fixtures y standings
         const response = await fetch('./data.json');
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         data = await response.json();
+        
+        // Cargar datos de equipos
+        const teamsResponse = await fetch('./teams.json');
+        if (!teamsResponse.ok) throw new Error(`HTTP error! status: ${teamsResponse.status}`);
+        teamsData = await teamsResponse.json();
+        
         init();
     } catch (error) {
         console.error('Error cargando datos:', error);
-        // Fallback: datos embebidos como respaldo
-        data = {
-            fixtures: [
-                { id: 1, team1: "Cochabamba United", team2: "La Paz Warriors", date: "2025-11-15", time: "19:30", venue: "Estadio Municipal", logo1: "CU", logo2: "LW", category: "Senior A" },
-                { id: 2, team1: "Santa Cruz Tigers", team2: "Cochabamba United", date: "2025-11-20", time: "20:00", venue: "Arena Santa Cruz", logo1: "ST", logo2: "CU", category: "Senior B" },
-                { id: 3, team1: "Oruro Dragons", team2: "La Paz Warriors", date: "2025-11-22", time: "18:30", venue: "Coliseo Minero", logo1: "OD", logo2: "LW", category: "Junior" },
-                { id: 4, team1: "Cochabamba United", team2: "Oruro Dragons", date: "2025-11-25", time: "19:00", venue: "Estadio Municipal", logo1: "CU", logo2: "OD", category: "Senior A" }
-            ],
-            results: [
-                { id: 1, team1: "Cochabamba United", team2: "Santa Cruz Tigers", score1: 82, score2: 75, date: "2025-11-08", logo1: "CU", logo2: "ST" },
-                { id: 2, team1: "La Paz Warriors", team2: "Oruro Dragons", score1: 78, score2: 85, date: "2025-11-07", logo1: "LW", logo2: "OD" },
-                { id: 3, team1: "Santa Cruz Tigers", team2: "La Paz Warriors", score1: 92, score2: 88, date: "2025-11-06", logo1: "ST", logo2: "LW" },
-                { id: 4, team1: "Oruro Dragons", team2: "Cochabamba United", score1: 70, score2: 79, date: "2025-11-05", logo1: "OD", logo2: "CU" }
-            ],
-            standings: [
-                { position: 1, team: "Cochabamba United", played: 8, wins: 7, losses: 1, points: 14 },
-                { position: 2, team: "Santa Cruz Tigers", played: 8, wins: 6, losses: 2, points: 12 },
-                { position: 3, team: "La Paz Warriors", played: 8, wins: 5, losses: 3, points: 10 },
-                { position: 4, team: "Oruro Dragons", played: 8, wins: 3, losses: 5, points: 6 }
-            ]
-        };
         init();
     }
 }
@@ -119,34 +106,41 @@ function renderFixtures() {
     container.innerHTML = html;
 }
 
-// Renderizar Resultados
-function renderResults() {
-    const container = document.getElementById('results-list');
+// Renderizar Equipos
+function renderTeams() {
+    const container = document.getElementById('teams-list');
     
-    if (!data.results || data.results.length === 0) {
-        container.innerHTML = '<div class="no-data">No hay resultados disponibles</div>';
+    if (!teamsData.teams || teamsData.teams.length === 0) {
+        container.innerHTML = '<div class="no-data">No hay datos de equipos disponibles</div>';
         return;
     }
 
-    container.innerHTML = data.results.map(result => {
-        const winner = result.score1 > result.score2 ? 1 : 2;
-        return `
-            <div class="result-card">
-                <div style="color: #999; font-size: 0.85em; margin-bottom: 10px;">📅 ${formatDate(result.date)}</div>
-                <div class="result-teams">
-                    <div class="result-team">
-                        <div class="team-logo">${renderLogo(result.logo1)}</div>
-                        <div class="result-team-name ${winner === 1 ? 'winner' : ''}">${result.team1}</div>
-                    </div>
-                    <div class="score">${result.score1} - ${result.score2}</div>
-                    <div class="result-team">
-                        <div class="team-logo">${renderLogo(result.logo2)}</div>
-                        <div class="result-team-name ${winner === 2 ? 'winner' : ''}">${result.team2}</div>
-                    </div>
+    container.innerHTML = teamsData.teams.map(team => `
+        <div class="team-card">
+            <div class="team-card-header">
+                <div class="team-card-logo">${renderLogo(team.logo)}</div>
+                <div class="team-card-info">
+                    <h3 class="team-card-name">${team.name}</h3>
+                    <p class="team-card-city">📍 ${team.city}</p>
                 </div>
             </div>
-        `;
-    }).join('');
+            <div class="team-card-details">
+                <div class="detail-item">
+                    <span class="detail-label">Entrenador:</span>
+                    <span class="detail-value">${team.coach || 'N/A'}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Categorías:</span>
+                    <span class="detail-value">${team.categories ? team.categories.join(', ') : 'N/A'}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Jugadores:</span>
+                    <span class="detail-value">${team.players || 'N/A'}</span>
+                </div>
+            </div>
+            ${team.description ? `<div class="team-card-description">${team.description}</div>` : ''}
+        </div>
+    `).join('');
 }
 
 // Renderizar Posiciones
@@ -193,7 +187,7 @@ function renderStandings() {
 // Inicializar la página
 function init() {
     renderFixtures();
-    renderResults();
+    renderTeams();
     renderStandings();
 }
 

@@ -1,0 +1,104 @@
+{
+  "teams": [
+    {
+      "id": 1,
+      "name": "I. Americano",
+      "city": "Cochabamba",
+      "logo": "IA",
+      "coach": "Juan García",
+      "categories": ["1RA DE ASCENSO VARONES", "3RA DE ASCENSO DAMAS"],
+      "players": "12",
+      "description": "Equipo con gran tradición en el baloncesto cochabambino."
+    },
+    {
+      "id": 2,
+      "name": "Ilussion",
+      "city": "Cochabamba",
+      "logo": "IL",
+      "coach": "Carlos Mendez",
+      "categories": ["1RA DE ASCENSO VARONES"],
+      "players": "14",
+      "description": "Equipo joven con gran proyección."
+    },
+    {
+      "id": 3,
+      "name": "Salesianos Don Bosco",
+      "city": "Cochabamba",
+      "logo": "SDB",
+      "coach": "Miguel López",
+      "categories": ["1RA DE ASCENSO VARONES"],
+      "players": "15",
+      "description": "Equipo representante de la institución educativa."
+    },
+    {
+      "id": 4,
+      "name": "Black Mamba",
+      "city": "Cochabamba",
+      "logo": "BM",
+      "coach": "Roberto Silva",
+      "categories": ["1RA DE ASCENSO VARONES", "2DA DE ASCENSO DAMAS"],
+      "players": "13",
+      "description": "Equipo con gran disciplina y organización."
+    },
+    {
+      "id": 5,
+      "name": "Olimpic",
+      "city": "Cochabamba",
+      "logo": "OL",
+      "coach": "Fernando Ruiz",
+      "categories": ["1RA DE ASCENSO VARONES", "2DA DE ASCENSO DAMAS"],
+      "players": "16",
+      "description": "Uno de los equipos más exitosos de la asociación."
+    },
+    {
+      "id": 6,
+      "name": "Atletas de Cristo",
+      "city": "Cochabamba",
+      "logo": "AC",
+      "coach": "Pedro Martínez",
+      "categories": ["1RA DE ASCENSO VARONES"],
+      "players": "12",
+      "description": "Equipo con buenos valores y excelente ambiente."
+    },
+    {
+      "id": 7,
+      "name": "Sallor Atenas",
+      "city": "Cochabamba",
+      "logo": "SA",
+      "coach": "Luis Vargas",
+      "categories": ["2DA DE ASCENSO DAMAS"],
+      "players": "11",
+      "description": "Equipo femenino con gran participación."
+    },
+    {
+      "id": 8,
+      "name": "Atletico Obrero",
+      "city": "Cochabamba",
+      "logo": "AO",
+      "coach": "Marco Gutierrez",
+      "categories": ["3RA DE ASCENSO DAMAS"],
+      "players": "10",
+      "description": "Equipo con espíritu competitivo y solidario."
+    },
+    {
+      "id": 9,
+      "name": "Eagles",
+      "city": "Cochabamba",
+      "logo": "EG",
+      "coach": "Diego Ortiz",
+      "categories": ["JUVENIL VARONES COPA ORO"],
+      "players": "14",
+      "description": "Equipo juvenil con gran futuro."
+    },
+    {
+      "id": 10,
+      "name": "Los Angeles",
+      "city": "Cochabamba",
+      "logo": "LA",
+      "coach": "Rosa Flores",
+      "categories": ["3RA DE ASCENSO DAMAS"],
+      "players": "12",
+      "description": "Equipo femenino con buena técnica."
+    }
+  ]
+}

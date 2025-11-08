@@ -95,6 +95,7 @@ body {
 
 .venue-section {
     grid-column: 1 / -1;
+    margin-top: 40px;
     margin-bottom: 30px;
 }
 
@@ -146,8 +147,7 @@ body {
     transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
-    height: 100%;
-    min-height: 380px;
+    max-height: 500px;
 }
 
 .fixture-card:hover {
@@ -241,13 +241,13 @@ body {
     border-top: 1px solid #eee;
 }
 
-.results-container {
+.teams-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
 }
 
-.result-card {
+.team-card {
     background: white;
     border-radius: 15px;
     padding: 20px;
@@ -255,40 +255,97 @@ body {
     display: flex;
     flex-direction: column;
     height: 100%;
-    min-height: 280px;
+    min-height: 350px;
+    transition: all 0.3s ease;
 }
 
-.result-teams {
+.team-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.team-card-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #da7707;
+}
+
+.team-card-logo {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #da7707 0%, #c2630e 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.1em;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.team-card-logo img,
+.team-card-logo .logo-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.team-card-info {
+    flex: 1;
+}
+
+.team-card-name {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #333;
+    margin: 0 0 5px 0;
+}
+
+.team-card-city {
+    color: #666;
+    font-size: 0.9em;
+    margin: 0;
+}
+
+.team-card-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.detail-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 20px;
-    margin-bottom: 15px;
-    flex: 1;
-    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
 }
 
-.result-team {
-    flex: 1;
-    text-align: center;
+.detail-label {
+    font-weight: 600;
+    color: #555;
+    font-size: 0.9em;
 }
 
-.result-team-name {
-    font-weight: bold;
+.detail-value {
     color: #333;
-    margin-bottom: 10px;
+    font-size: 0.9em;
+    text-align: right;
 }
 
-.score {
-    font-size: 2.5em;
-    font-weight: bold;
-    color: #667eea;
-    margin: 0 20px;
-}
-
-.winner {
-    color: #28a745;
-    font-weight: bold;
+.team-card-description {
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+    color: #666;
+    font-size: 0.85em;
+    line-height: 1.5;
 }
 
 .standings-table {
