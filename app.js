@@ -599,24 +599,24 @@ class SportsApp {
         fetch('datos.xlsx')
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('No se encontró datos.xlsx');
+                    throw new Error(`No se encontró datos.xlsx (HTTP ${response.status})`);
                 }
                 return response.arrayBuffer();
             })
             .then(data => {
                 try {
+                    console.log('Archivo Excel encontrado, procesando...');
                     const workbook = XLSX.read(data, { type: 'array' });
+                    console.log('Hojas encontradas:', workbook.SheetNames);
                     this.processExcelWorkbook(workbook);
                     localStorage.setItem('hasLoadedExcel', 'true');
-                    this.render();
-                    this.showToast('✅ Datos cargados desde Excel');
                 } catch (error) {
                     console.error('Error procesando Excel:', error);
                     this.loadDefaults();
                 }
             })
             .catch(error => {
-                console.log('Excel no encontrado, usando datos por defecto');
+                console.log('No se encontró datos.xlsx, usando datos por defecto:', error.message);
                 this.loadDefaults();
             })
             .finally(() => {
@@ -660,34 +660,43 @@ class SportsApp {
     processExcelWorkbook(workbook) {
         const sheets = workbook.SheetNames;
         
+        // Limpiar datos previos
+        this.fixtures = [];
+        this.results = [];
+        this.notifications = [];
+        
         sheets.forEach(sheetName => {
             const worksheet = workbook.Sheets[sheetName];
             const data = XLSX.utils.sheet_to_json(worksheet);
             
-            // Procesar según el nombre de la hoja
-            if (sheetName.toLowerCase().includes('fixture') || sheetName.toLowerCase().includes('partidos')) {
+            console.log(`Procesando hoja: ${sheetName}`, data);
+            
+            // Procesar según el nombre de la hoja (case-insensitive)
+            const sheetLower = sheetName.toLowerCase();
+            if (sheetLower.includes('fixture') || sheetLower.includes('partidos')) {
                 this.importFixtures(data);
-            } else if (sheetName.toLowerCase().includes('resultado') || sheetName.toLowerCase().includes('result')) {
+            } else if (sheetLower.includes('resultado') || sheetLower.includes('result')) {
                 this.importResults(data);
-            } else if (sheetName.toLowerCase().includes('aviso') || sheetName.toLowerCase().includes('notifi')) {
+            } else if (sheetLower.includes('aviso') || sheetLower.includes('notifi')) {
                 this.importNotifications(data);
             }
         });
 
         this.saveToStorage();
         this.render();
-        this.showToast('✅ Datos importados exitosamente');
+        this.showToast('✅ Datos cargados desde Excel exitosamente');
     }
 
     importFixtures(data) {
+        if (!data || data.length === 0) return;
+        
         data.forEach(row => {
             // Espera columnas: equipo1, equipo2, fecha, hora, cancha
-            // También acepta: team1, team2, date, time, location (compatibilidad)
-            const team1 = row.equipo1 || row.team1;
-            const team2 = row.equipo2 || row.team2;
-            const date = row.fecha || row.date;
-            const time = row.hora || row.time;
-            const location = row.cancha || row.location;
+            const team1 = row.equipo1 || row.team1 || row.Equipo1 || row.EQUIPO1;
+            const team2 = row.equipo2 || row.team2 || row.Equipo2 || row.EQUIPO2;
+            const date = row.fecha || row.date || row.Fecha || row.DATE;
+            const time = row.hora || row.time || row.Hora || row.TIME;
+            const location = row.cancha || row.location || row.Cancha || row.LOCATION;
             
             if (team1 && team2 && date) {
                 const fixture = {
@@ -695,47 +704,65 @@ class SportsApp {
                     team1: team1.toString().trim(),
                     team2: team2.toString().trim(),
                     date: this.formatDateForStorage(date),
-                    time: time?.toString().trim() || '20:00',
-                    location: location?.toString().trim() || 'Cancha',
+                    time: time ? time.toString().trim() : '20:00',
+                    location: location ? location.toString().trim() : 'Cancha',
                     status: 'scheduled'
                 };
                 this.fixtures.push(fixture);
+                console.log('Fixture agregado:', fixture);
             }
         });
     }
 
     importResults(data) {
+        if (!data || data.length === 0) return;
+        
         data.forEach(row => {
             // Espera columnas: team1, score1, team2, score2, date, location
-            if (row.team1 && row.team2 && row.score1 !== undefined && row.score2 !== undefined) {
+            const team1 = row.team1 || row.Team1 || row.TEAM1;
+            const team2 = row.team2 || row.Team2 || row.TEAM2;
+            const score1 = parseInt(row.score1 || row.Score1 || row.SCORE1 || 0);
+            const score2 = parseInt(row.score2 || row.Score2 || row.SCORE2 || 0);
+            const date = row.date || row.Date || row.DATE;
+            const location = row.location || row.Location || row.LOCATION;
+            
+            if (team1 && team2 && !isNaN(score1) && !isNaN(score2) && date) {
                 const result = {
                     id: Date.now() + Math.random(),
-                    team1: row.team1.toString().trim(),
-                    score1: parseInt(row.score1),
-                    team2: row.team2.toString().trim(),
-                    score2: parseInt(row.score2),
-                    date: this.formatDateForStorage(row.date),
-                    location: row.location?.toString().trim() || 'Cancha',
+                    team1: team1.toString().trim(),
+                    score1: score1,
+                    team2: team2.toString().trim(),
+                    score2: score2,
+                    date: this.formatDateForStorage(date),
+                    location: location ? location.toString().trim() : 'Cancha',
                     status: 'finished'
                 };
                 this.results.push(result);
+                console.log('Resultado agregado:', result);
             }
         });
     }
 
     importNotifications(data) {
+        if (!data || data.length === 0) return;
+        
         data.forEach(row => {
             // Espera columnas: title, message, type
-            if (row.title && row.message) {
+            const title = row.title || row.Title || row.TITLE;
+            const message = row.message || row.Message || row.MESSAGE;
+            const type = row.type || row.Type || row.TYPE;
+            
+            if (title && message) {
                 const notification = {
                     id: Date.now() + Math.random(),
-                    title: row.title.toString().trim(),
-                    message: row.message.toString().trim(),
-                    type: row.type?.toString().toLowerCase().trim() || 'info',
+                    title: title.toString().trim(),
+                    message: message.toString().trim(),
+                    type: (type ? type.toString().toLowerCase().trim() : 'info'),
                     timestamp: new Date().toISOString(),
                     read: false
                 };
                 this.notifications.unshift(notification);
+                console.log('Notificación agregada:', notification);
             }
         });
     }
