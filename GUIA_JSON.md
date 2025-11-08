@@ -50,18 +50,21 @@ Contiene la lista de partidos próximos a jugarse. Estos se mostrarán agrupados
 | `time` | Hora | Hora del partido en formato HH:MM (24 horas) | `"19:00"` |
 | `venue` | Texto | Nombre de la cancha donde se juega | `"Israel Aviles (Aux. C)"` |
 | `category` | Texto | Categoría/División del partido | `"1RA DE ASCENSO VARONES"` |
-| `logo1` | Texto | Iniciales/Abreviatura del equipo 1 (máx. 3 caracteres) | `"IA"` |
-| `logo2` | Texto | Iniciales/Abreviatura del equipo 2 (máx. 3 caracteres) | `"IL"` |
+| `logo1` | Texto | Iniciales del equipo 1 O ruta a imagen JPG/PNG | `"IA"` o `"logos/equipo1.jpg"` |
+| `logo2` | Texto | Iniciales del equipo 2 O ruta a imagen JPG/PNG | `"IL"` o `"logos/equipo2.png"` |
 
 ### ⚠️ Notas importantes sobre FIXTURES
 
 - **Las fechas y horas deben ser en formato correcto** para que se ordenen adecuadamente
 - **El `id` debe ser único** para cada partido
-- **Los logos se mostrarán en círculos negros** como abreviaturas
+- **Los logos pueden ser:**
+  - **Iniciales de texto** (máx. 3 caracteres): Se mostrarán en círculos negros
+  - **Rutas a imágenes**: Pueden ser JPG, PNG o GIF (ej: `"logos/sallor.jpg"`)
+- **Las imágenes deben estar en una carpeta `/logos`** en la raíz del proyecto
 - **Los partidos se agruparán automáticamente por `venue`** (cancha)
 - **Los partidos se ordenarán por `time` dentro de cada cancha**
 
-### ✅ Ejemplo completo de múltiples fixtures
+### ✅ Ejemplo completo con iniciales
 
 ```json
 "fixtures": [
@@ -75,17 +78,24 @@ Contiene la lista de partidos próximos a jugarse. Estos se mostrarán agrupados
     "category": "1RA DE ASCENSO VARONES",
     "logo1": "IA",
     "logo2": "IL"
-  },
+  }
+]
+```
+
+### ✅ Ejemplo completo con imágenes JPG
+
+```json
+"fixtures": [
   {
-    "id": 2,
-    "team1": "Salesianos Don Bosco",
-    "team2": "Black Mamba",
-    "date": "2025-11-10",
-    "time": "20:10",
-    "venue": "Israel Aviles (Aux. C)",
-    "category": "1RA DE ASCENSO VARONES",
-    "logo1": "SDB",
-    "logo2": "BM"
+    "id": 12,
+    "team1": "Leones Cochabamba",
+    "team2": "Sallor Atenas",
+    "date": "2025-11-11",
+    "time": "21:20",
+    "venue": "Casimiro Vargas",
+    "category": "3RA DE ASCENSO VARONES PLAY OFF SEMI FINAL",
+    "logo1": "LC",
+    "logo2": "logos/sallor.jpg"
   }
 ]
 ```
@@ -313,10 +323,36 @@ Puedes verificar si tu JSON es válido usando:
 - **Fecha**: `YYYY-MM-DD` (ej: `2025-11-10`)
 - **Hora**: `HH:MM` en formato 24 horas (ej: `19:00`, `20:30`)
 
-### Logos/Abreviaturas
+### Logos/Abreviaturas y Imágenes
+**Opción 1: Iniciales (texto)**
 - Máximo 3 caracteres
 - Se mostrarán en círculos negros
 - Ejemplos: `"CU"`, `"BM"`, `"LS"`, `"AC"`
+
+**Opción 2: Imágenes (JPG/PNG/GIF)**
+- Ruta relativa desde la raíz del proyecto
+- Debe estar en la carpeta `/logos`
+- Ejemplos: `"logos/sallor.jpg"`, `"logos/team.png"`
+- **La extensión de archivo es importante** para que se detecte como imagen
+
+**¿Cómo crear la carpeta de logos?**
+1. Crea una carpeta llamada `logos` en la raíz del proyecto
+2. Dentro, coloca tus imágenes JPG, PNG o GIF
+3. En el JSON, referencia así: `"logos/nombre_archivo.jpg"`
+
+**Estructura de carpetas:**
+```
+AsociacionBasket/
+├── index.html
+├── script.js
+├── styles.css
+├── data.json
+├── GUIA_JSON.md
+└── logos/
+    ├── sallor.jpg
+    ├── americano.jpg
+    └── otro_equipo.png
+```
 
 ### Nombres de Canchas
 Asegúrate de usar exactamente el mismo nombre de cancha para que se agrupen correctamente:
