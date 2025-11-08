@@ -56,6 +56,16 @@ function formatDate(dateString) {
     return date.toLocaleDateString('es-ES', options);
 }
 
+// Función para renderizar logo (imagen o texto)
+function renderLogo(logo) {
+    // Si contiene extensión de archivo, es una imagen
+    if (logo && (logo.includes('.jpg') || logo.includes('.png') || logo.includes('.gif'))) {
+        return `<img src="${logo}" alt="Logo" class="logo-image">`;
+    }
+    // Si no, es una abreviatura de texto
+    return logo;
+}
+
 // Renderizar Fixtures
 function renderFixtures() {
     const container = document.getElementById('fixtures-list');
@@ -92,12 +102,12 @@ function renderFixtures() {
                 <div class="fixture-time">⏰ ${fixture.time}</div>
                 <div class="teams">
                     <div class="team">
-                        <div class="team-logo">${fixture.logo1}</div>
+                        <div class="team-logo">${renderLogo(fixture.logo1)}</div>
                         <div class="team-name">${fixture.team1}</div>
                     </div>
                     <div class="vs">VS</div>
                     <div class="team">
-                        <div class="team-logo">${fixture.logo2}</div>
+                        <div class="team-logo">${renderLogo(fixture.logo2)}</div>
                         <div class="team-name">${fixture.team2}</div>
                     </div>
                 </div>
@@ -125,12 +135,12 @@ function renderResults() {
                 <div style="color: #999; font-size: 0.85em; margin-bottom: 10px;">📅 ${formatDate(result.date)}</div>
                 <div class="result-teams">
                     <div class="result-team">
-                        <div class="team-logo">${result.logo1}</div>
+                        <div class="team-logo">${renderLogo(result.logo1)}</div>
                         <div class="result-team-name ${winner === 1 ? 'winner' : ''}">${result.team1}</div>
                     </div>
                     <div class="score">${result.score1} - ${result.score2}</div>
                     <div class="result-team">
-                        <div class="team-logo">${result.logo2}</div>
+                        <div class="team-logo">${renderLogo(result.logo2)}</div>
                         <div class="result-team-name ${winner === 2 ? 'winner' : ''}">${result.team2}</div>
                     </div>
                 </div>
