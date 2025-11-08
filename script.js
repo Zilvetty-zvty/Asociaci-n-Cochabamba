@@ -65,25 +65,48 @@ function renderFixtures() {
         return;
     }
 
-    container.innerHTML = data.fixtures.map(fixture => `
-        <div class="fixture-card">
-            <div class="fixture-date">${formatDate(fixture.date)}</div>
-            <div class="fixture-category">🏆 ${fixture.category}</div>
-            <div class="fixture-time">⏰ ${fixture.time}</div>
-            <div class="teams">
-                <div class="team">
-                    <div class="team-logo">${fixture.logo1}</div>
-                    <div class="team-name">${fixture.team1}</div>
-                </div>
-                <div class="vs">VS</div>
-                <div class="team">
-                    <div class="team-logo">${fixture.logo2}</div>
-                    <div class="team-name">${fixture.team2}</div>
+    // Agrupar partidos por cancha
+    const fixturesByVenue = {};
+    data.fixtures.forEach(fixture => {
+        if (!fixturesByVenue[fixture.venue]) {
+            fixturesByVenue[fixture.venue] = [];
+        }
+        fixturesByVenue[fixture.venue].push(fixture);
+    });
+
+    // Ordenar partidos dentro de cada cancha por hora
+    Object.keys(fixturesByVenue).forEach(venue => {
+        fixturesByVenue[venue].sort((a, b) => {
+            return a.time.localeCompare(b.time);
+        });
+    });
+
+    // Generar HTML con secciones por cancha
+    let html = '';
+    Object.keys(fixturesByVenue).forEach(venue => {
+        html += `<div class="venue-section"><h3>📍 ${venue}</h3>`;
+        html += fixturesByVenue[venue].map(fixture => `
+            <div class="fixture-card">
+                <div class="fixture-date">${formatDate(fixture.date)}</div>
+                <div class="fixture-category">🏆 ${fixture.category}</div>
+                <div class="fixture-time">⏰ ${fixture.time}</div>
+                <div class="teams">
+                    <div class="team">
+                        <div class="team-logo">${fixture.logo1}</div>
+                        <div class="team-name">${fixture.team1}</div>
+                    </div>
+                    <div class="vs">VS</div>
+                    <div class="team">
+                        <div class="team-logo">${fixture.logo2}</div>
+                        <div class="team-name">${fixture.team2}</div>
+                    </div>
                 </div>
             </div>
-            <div class="venue">📍 ${fixture.venue}</div>
-        </div>
-    `).join('');
+        `).join('');
+        html += '</div>';
+    });
+
+    container.innerHTML = html;
 }
 
 // Renderizar Resultados
