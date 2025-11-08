@@ -4,16 +4,23 @@
 
 class SportsApp {
     constructor() {
-        this.fixtures = JSON.parse(localStorage.getItem('fixtures')) || this.getDefaultFixtures();
-        this.results = JSON.parse(localStorage.getItem('results')) || this.getDefaultResults();
-        this.notifications = JSON.parse(localStorage.getItem('notifications')) || this.getDefaultNotifications();
+        this.fixtures = JSON.parse(localStorage.getItem('fixtures')) || [];
+        this.results = JSON.parse(localStorage.getItem('results')) || [];
+        this.notifications = JSON.parse(localStorage.getItem('notifications')) || [];
         this.currentModal = null;
+        this.hasLoadedExcel = localStorage.getItem('hasLoadedExcel') === 'true';
         this.init();
     }
 
     init() {
         this.setupEventListeners();
-        this.render();
+        
+        // Si no ha cargado Excel aún, intentar cargar automáticamente
+        if (!this.hasLoadedExcel) {
+            this.loadExcelOnStartup();
+        } else {
+            this.render();
+        }
     }
 
     setupEventListeners() {
@@ -27,7 +34,15 @@ class SportsApp {
         document.getElementById('addResultBtn').addEventListener('click', () => this.openModal('result'));
         document.getElementById('addNotificationBtn').addEventListener('click', () => this.openModal('notification'));
 
-        // Import/Export Excel buttons
+        // Import/Export/Reload Excel buttons
+        document.getElementById('reloadExcelBtn').addEventListener('click', () => {
+            localStorage.removeItem('hasLoadedExcel');
+            this.fixtures = [];
+            this.results = [];
+            this.notifications = [];
+            this.loadExcelOnStartup();
+        });
+        
         document.getElementById('importExcelBtn').addEventListener('click', () => {
             document.getElementById('excelFileInput').click();
         });
@@ -575,6 +590,55 @@ class SportsApp {
     // FUNCIONES EXCEL
     // =====================
     
+    loadExcelOnStartup() {
+        // Mostrar overlay de carga
+        const overlay = document.getElementById('loadingOverlay');
+        if (overlay) overlay.style.display = 'flex';
+
+        // Intentar cargar el archivo datos.xlsx
+        fetch('datos.xlsx')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('No se encontró datos.xlsx');
+                }
+                return response.arrayBuffer();
+            })
+            .then(data => {
+                try {
+                    const workbook = XLSX.read(data, { type: 'array' });
+                    this.processExcelWorkbook(workbook);
+                    localStorage.setItem('hasLoadedExcel', 'true');
+                    this.render();
+                    this.showToast('✅ Datos cargados desde Excel');
+                } catch (error) {
+                    console.error('Error procesando Excel:', error);
+                    this.loadDefaults();
+                }
+            })
+            .catch(error => {
+                console.log('Excel no encontrado, usando datos por defecto');
+                this.loadDefaults();
+            })
+            .finally(() => {
+                if (overlay) overlay.style.display = 'none';
+            });
+    }
+
+    loadDefaults() {
+        // Si Excel no existe, cargar datos por defecto
+        if (this.fixtures.length === 0) {
+            this.fixtures = this.getDefaultFixtures();
+        }
+        if (this.results.length === 0) {
+            this.results = this.getDefaultResults();
+        }
+        if (this.notifications.length === 0) {
+            this.notifications = this.getDefaultNotifications();
+        }
+        localStorage.setItem('hasLoadedExcel', 'true');
+        this.render();
+    }
+    
     handleExcelFile(event) {
         const file = event.target.files[0];
         if (!file) return;
@@ -617,15 +681,22 @@ class SportsApp {
 
     importFixtures(data) {
         data.forEach(row => {
-            // Espera columnas: team1, team2, date, time, location
-            if (row.team1 && row.team2 && row.date) {
+            // Espera columnas: equipo1, equipo2, fecha, hora, cancha
+            // También acepta: team1, team2, date, time, location (compatibilidad)
+            const team1 = row.equipo1 || row.team1;
+            const team2 = row.equipo2 || row.team2;
+            const date = row.fecha || row.date;
+            const time = row.hora || row.time;
+            const location = row.cancha || row.location;
+            
+            if (team1 && team2 && date) {
                 const fixture = {
                     id: Date.now() + Math.random(),
-                    team1: row.team1.trim(),
-                    team2: row.team2.trim(),
-                    date: this.formatDateForStorage(row.date),
-                    time: row.time?.toString().trim() || '20:00',
-                    location: row.location?.toString().trim() || 'Cancha',
+                    team1: team1.toString().trim(),
+                    team2: team2.toString().trim(),
+                    date: this.formatDateForStorage(date),
+                    time: time?.toString().trim() || '20:00',
+                    location: location?.toString().trim() || 'Cancha',
                     status: 'scheduled'
                 };
                 this.fixtures.push(fixture);

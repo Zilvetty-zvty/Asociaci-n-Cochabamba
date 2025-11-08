@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0",
+  "note": "Este archivo es un placeholder. Los datos reales se cargan desde datos.xlsx",
+  "instrucciones": "1. Crea un archivo 'datos.xlsx' en la misma carpeta que index.html",
+  "estructura": {
+    "fixtures": {
+      "columnas": ["team1", "team2", "date", "time", "location"],
+      "ejemplo": ["Titanes", "Águilas", "2025-11-15", "20:00", "Cancha Central"]
+    },
+    "results": {
+      "columnas": ["team1", "score1", "team2", "score2", "date", "location"],
+      "ejemplo": ["Titanes", "78", "Búhos", "72", "2025-11-10", "Cancha Central"]
+    },
+    "notifications": {
+      "columnas": ["title", "message", "type"],
+      "ejemplo": ["¡Campeonato Iniciado!", "El torneo 2025 ha comenzado", "info"]
+    }
+  }
+}

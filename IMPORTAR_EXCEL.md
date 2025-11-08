@@ -13,18 +13,18 @@ Soporta formatos:
 
 ### Nombre de hoja: "Fixtures" o "Partidos"
 
-| team1 | team2 | date | time | location |
-|-------|-------|------|------|----------|
+| equipo1 | equipo2 | fecha | hora | cancha |
+|---------|---------|-------|------|--------|
 | Titanes | Águilas | 2025-11-15 | 20:00 | Cancha Central |
 | Leones | Dragones | 2025-11-16 | 19:30 | Cancha Norte |
 | Panteras | Falcones | 2025-11-17 | 20:00 | Cancha Sur |
 
 **Columnas requeridas:**
-- `team1` - Nombre del equipo 1
-- `team2` - Nombre del equipo 2
-- `date` - Fecha (formato: YYYY-MM-DD o cualquier formato de fecha)
-- `time` - Hora (formato: HH:MM, ej: 20:00)
-- `location` - Ubicación/Cancha
+- `equipo1` - Nombre del equipo 1
+- `equipo2` - Nombre del equipo 2
+- `fecha` - Fecha (formato: YYYY-MM-DD)
+- `hora` - Hora (formato: HH:MM, ej: 20:00)
+- `cancha` - Cancha/Ubicación
 
 ---
 
