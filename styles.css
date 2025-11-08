@@ -107,7 +107,7 @@ body {
 }
 
 .fixture-date {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #000000 0%, #3b3b3b 100%);
     color: white;
     padding: 10px;
     border-radius: 8px;
@@ -158,7 +158,7 @@ body {
     width: 60px;
     height: 60px;
     margin: 0 auto 10px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #000000 0%, #000000 100%);
     border-radius: 50%;
     display: flex;
     align-items: center;
