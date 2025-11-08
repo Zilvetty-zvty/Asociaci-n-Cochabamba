@@ -27,6 +27,18 @@ class SportsApp {
         document.getElementById('addResultBtn').addEventListener('click', () => this.openModal('result'));
         document.getElementById('addNotificationBtn').addEventListener('click', () => this.openModal('notification'));
 
+        // Import/Export Excel buttons
+        document.getElementById('importExcelBtn').addEventListener('click', () => {
+            document.getElementById('excelFileInput').click();
+        });
+        
+        document.getElementById('exportExcelBtn').addEventListener('click', () => {
+            this.exportToExcel();
+        });
+
+        // File input change
+        document.getElementById('excelFileInput').addEventListener('change', (e) => this.handleExcelFile(e));
+
         // Modal
         document.querySelector('.close').addEventListener('click', () => this.closeModal());
         document.getElementById('modal').addEventListener('click', (e) => {
@@ -557,6 +569,164 @@ class SportsApp {
         if (diffDays < 7) return `Hace ${diffDays}d`;
         
         return date.toLocaleDateString('es-ES');
+    }
+
+    // =====================
+    // FUNCIONES EXCEL
+    // =====================
+    
+    handleExcelFile(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            try {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, { type: 'array' });
+                this.processExcelWorkbook(workbook);
+            } catch (error) {
+                this.showToast('Error al leer el archivo Excel', 'error');
+                console.error(error);
+            }
+        };
+        reader.readAsArrayBuffer(file);
+    }
+
+    processExcelWorkbook(workbook) {
+        const sheets = workbook.SheetNames;
+        
+        sheets.forEach(sheetName => {
+            const worksheet = workbook.Sheets[sheetName];
+            const data = XLSX.utils.sheet_to_json(worksheet);
+            
+            // Procesar según el nombre de la hoja
+            if (sheetName.toLowerCase().includes('fixture') || sheetName.toLowerCase().includes('partidos')) {
+                this.importFixtures(data);
+            } else if (sheetName.toLowerCase().includes('resultado') || sheetName.toLowerCase().includes('result')) {
+                this.importResults(data);
+            } else if (sheetName.toLowerCase().includes('aviso') || sheetName.toLowerCase().includes('notifi')) {
+                this.importNotifications(data);
+            }
+        });
+
+        this.saveToStorage();
+        this.render();
+        this.showToast('✅ Datos importados exitosamente');
+    }
+
+    importFixtures(data) {
+        data.forEach(row => {
+            // Espera columnas: team1, team2, date, time, location
+            if (row.team1 && row.team2 && row.date) {
+                const fixture = {
+                    id: Date.now() + Math.random(),
+                    team1: row.team1.trim(),
+                    team2: row.team2.trim(),
+                    date: this.formatDateForStorage(row.date),
+                    time: row.time?.toString().trim() || '20:00',
+                    location: row.location?.toString().trim() || 'Cancha',
+                    status: 'scheduled'
+                };
+                this.fixtures.push(fixture);
+            }
+        });
+    }
+
+    importResults(data) {
+        data.forEach(row => {
+            // Espera columnas: team1, score1, team2, score2, date, location
+            if (row.team1 && row.team2 && row.score1 !== undefined && row.score2 !== undefined) {
+                const result = {
+                    id: Date.now() + Math.random(),
+                    team1: row.team1.toString().trim(),
+                    score1: parseInt(row.score1),
+                    team2: row.team2.toString().trim(),
+                    score2: parseInt(row.score2),
+                    date: this.formatDateForStorage(row.date),
+                    location: row.location?.toString().trim() || 'Cancha',
+                    status: 'finished'
+                };
+                this.results.push(result);
+            }
+        });
+    }
+
+    importNotifications(data) {
+        data.forEach(row => {
+            // Espera columnas: title, message, type
+            if (row.title && row.message) {
+                const notification = {
+                    id: Date.now() + Math.random(),
+                    title: row.title.toString().trim(),
+                    message: row.message.toString().trim(),
+                    type: row.type?.toString().toLowerCase().trim() || 'info',
+                    timestamp: new Date().toISOString(),
+                    read: false
+                };
+                this.notifications.unshift(notification);
+            }
+        });
+    }
+
+    formatDateForStorage(excelDate) {
+        // Si es un número (formato Excel), convertir
+        if (typeof excelDate === 'number') {
+            const date = new Date((excelDate - 25569) * 86400 * 1000);
+            return date.toISOString().split('T')[0];
+        }
+        // Si es string, intentar parsear
+        if (typeof excelDate === 'string') {
+            const parsed = new Date(excelDate);
+            if (!isNaN(parsed)) {
+                return parsed.toISOString().split('T')[0];
+            }
+        }
+        return new Date().toISOString().split('T')[0];
+    }
+
+    exportToExcel() {
+        // Crear workbook con múltiples hojas
+        const wb = XLSX.utils.book_new();
+
+        // Hoja de Fixtures
+        const fixturesData = this.fixtures.map(f => ({
+            'Equipo 1': f.team1,
+            'Equipo 2': f.team2,
+            'Fecha': f.date,
+            'Hora': f.time,
+            'Ubicación': f.location,
+            'Estado': f.status
+        }));
+        const wsFixtures = XLSX.utils.json_to_sheet(fixturesData);
+        XLSX.utils.book_append_sheet(wb, wsFixtures, 'Fixtures');
+
+        // Hoja de Resultados
+        const resultsData = this.results.map(r => ({
+            'Equipo 1': r.team1,
+            'Puntos 1': r.score1,
+            'Equipo 2': r.team2,
+            'Puntos 2': r.score2,
+            'Fecha': r.date,
+            'Ubicación': r.location
+        }));
+        const wsResults = XLSX.utils.json_to_sheet(resultsData);
+        XLSX.utils.book_append_sheet(wb, wsResults, 'Resultados');
+
+        // Hoja de Notificaciones
+        const notificationsData = this.notifications.map(n => ({
+            'Título': n.title,
+            'Mensaje': n.message,
+            'Tipo': n.type,
+            'Fecha': new Date(n.timestamp).toLocaleString('es-ES')
+        }));
+        const wsNotifications = XLSX.utils.json_to_sheet(notificationsData);
+        XLSX.utils.book_append_sheet(wb, wsNotifications, 'Avisos');
+
+        // Descargar
+        const filename = `asociacion-basket-${new Date().toISOString().split('T')[0]}.xlsx`;
+        XLSX.writeFile(wb, filename);
+        this.showToast('✅ Datos exportados a Excel');
     }
 }
 

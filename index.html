@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Asociación Basket - Fixtures y Resultados</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- SheetJS para leer archivos Excel -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -16,9 +18,14 @@
                     <button class="nav-btn active" data-section="fixtures">Fixtures</button>
                     <button class="nav-btn" data-section="results">Resultados</button>
                     <button class="nav-btn" data-section="notifications">Avisos</button>
+                    <button class="nav-btn" id="importExcelBtn" title="Importar datos de Excel">� Importar</button>
+                    <button class="nav-btn" id="exportExcelBtn" title="Exportar datos a Excel">📤 Exportar</button>
                 </nav>
             </div>
         </header>
+        
+        <!-- Input oculto para cargar archivo -->
+        <input type="file" id="excelFileInput" accept=".xlsx,.xls,.csv" style="display: none;">
 
         <!-- Main Content -->
         <main class="main-content">
