@@ -1,0 +1,44 @@
+{
+  "news": [
+    {
+      "id": 1,
+      "title": "I. Americano campeón invicto de la temporada 2025",
+      "date": "2025-11-08",
+      "content": "El equipo I. Americano logró culminar la temporada sin una sola derrota, posicionándose como el campeón indiscutible de la 1RA DE ASCENSO VARONES. Con un desempeño excepcional y una estrategia defensiva impecable.",
+      "author": "Redacción Deportiva",
+      "image": ""
+    },
+    {
+      "id": 2,
+      "title": "Nuevo torneo clasificatorio para la copa oro",
+      "date": "2025-11-06",
+      "content": "La asociación anuncia el inicio del torneo clasificatorio para la Copa Oro de la categoría JUVENIL VARONES. Los equipos deberán registrar a sus mejores elementos para competir por el título nacional.",
+      "author": "Coordinación de Torneos",
+      "image": ""
+    },
+    {
+      "id": 3,
+      "title": "Destacan participación de equipos femeninos en liga",
+      "date": "2025-11-05",
+      "content": "Los equipos femeninos de la Asociación Cochabamba han demostrado un nivel competitivo muy alto en este torneo. Sallor Atenas y Atletico Obrero se posicionan como favoritas para las finales.",
+      "author": "Análisis Deportivo",
+      "image": ""
+    },
+    {
+      "id": 4,
+      "title": "Nuevas instalaciones para entrenamientos",
+      "date": "2025-11-03",
+      "content": "La Asociación Cochabamba inauguró nuevas canchas de entrenamiento en la zona sur de la ciudad, beneficiando a más de 200 jugadores de todas las categorías.",
+      "author": "Gestión Administrativa",
+      "image": ""
+    },
+    {
+      "id": 5,
+      "title": "Encuentro amistoso binacional con Santa Cruz",
+      "date": "2025-10-31",
+      "content": "Se llevó a cabo un emocionante encuentro amistoso entre los seleccionados de Cochabamba y Santa Cruz. El partido fue muy competido y resultó en una valiosa experiencia para ambos equipos.",
+      "author": "Relaciones Interligas",
+      "image": ""
+    }
+  ]
+}

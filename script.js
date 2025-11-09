@@ -1,5 +1,6 @@
 let data = {};
 let teamsData = {};
+let newsData = {};
 
 // Cargar datos JSON
 async function loadData() {
@@ -13,6 +14,11 @@ async function loadData() {
         const teamsResponse = await fetch('./teams.json');
         if (!teamsResponse.ok) throw new Error(`HTTP error! status: ${teamsResponse.status}`);
         teamsData = await teamsResponse.json();
+        
+        // Cargar datos de noticias
+        const newsResponse = await fetch('./news.json');
+        if (!newsResponse.ok) throw new Error(`HTTP error! status: ${newsResponse.status}`);
+        newsData = await newsResponse.json();
         
         init();
     } catch (error) {
@@ -147,12 +153,12 @@ function renderTeams() {
 function renderNews() {
     const container = document.getElementById('news-list');
     
-    if (!teamsData.news || teamsData.news.length === 0) {
+    if (!newsData.news || newsData.news.length === 0) {
         container.innerHTML = '<div class="no-data">No hay noticias disponibles</div>';
         return;
     }
 
-    container.innerHTML = teamsData.news.map(news => `
+    container.innerHTML = newsData.news.map(news => `
         <div class="news-card">
             <div class="news-date">${formatDate(news.date)}</div>
             <h3 class="news-title">${news.title}</h3>
