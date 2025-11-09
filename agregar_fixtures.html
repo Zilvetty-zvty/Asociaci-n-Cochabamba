@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Fixtures - Asociación Cochabamba</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #da7707, #ff9a3d);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+        }
+
+        h1 {
+            color: #da7707;
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 3px solid #da7707;
+            padding-bottom: 15px;
+        }
+
+        .form-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        input, select {
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #da7707;
+            background-color: #fff9f0;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 12px 30px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn-add {
+            background: linear-gradient(135deg, #da7707, #ff9a3d);
+            color: white;
+            flex: 1;
+        }
+
+        .btn-add:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(218, 119, 7, 0.4);
+        }
+
+        .btn-reset {
+            background: #f0f0f0;
+            color: #666;
+            flex: 1;
+        }
+
+        .btn-reset:hover {
+            background: #e0e0e0;
+        }
+
+        .btn-copy {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-copy:hover {
+            background: #45a049;
+        }
+
+        .btn-download {
+            background: #2196F3;
+            color: white;
+        }
+
+        .btn-download:hover {
+            background: #0b7dda;
+        }
+
+        .output-section {
+            margin-top: 30px;
+            border-top: 2px solid #da7707;
+            padding-top: 20px;
+        }
+
+        h2 {
+            color: #da7707;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        #fixturesList {
+            background: #f9f9f9;
+            border: 2px solid #eee;
+            border-radius: 5px;
+            padding: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .fixture-item {
+            background: white;
+            border-left: 4px solid #da7707;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 3px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .fixture-item-info {
+            flex: 1;
+        }
+
+        .fixture-item-teams {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .fixture-item-details {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .btn-delete {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .btn-delete:hover {
+            background: #ff5252;
+        }
+
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            resize: vertical;
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            border-radius: 3px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #1565c0;
+        }
+
+        .success-message {
+            background: #c8e6c9;
+            border-left: 4px solid #4CAF50;
+            padding: 12px;
+            border-radius: 3px;
+            margin-bottom: 15px;
+            color: #2e7d32;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .form-section {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚽ Agregar Fixtures</h1>
+
+        <div class="info-box">
+            ℹ️ Completa el formulario para agregar un nuevo fixture. Luego podrás descargar el JSON o copiar el código para pegar en data.json.
+        </div>
+
+        <form id="fixtureForm">
+            <div class="form-section">
+                <div class="form-group">
+                    <label for="team1">Equipo 1 *</label>
+                    <select id="team1" required>
+                        <option value="">Selecciona un equipo...</option>
+                        <option value="I. Americano">I. Americano</option>
+                        <option value="Ilussion">Ilussion</option>
+                        <option value="Salesianos Don Bosco">Salesianos Don Bosco</option>
+                        <option value="Black Mamba">Black Mamba</option>
+                        <option value="Olimpic">Olimpic</option>
+                        <option value="Atletas de Cristo">Atletas de Cristo</option>
+                        <option value="Sallor Atenas">Sallor Atenas</option>
+                        <option value="Atletico Obrero">Atletico Obrero</option>
+                        <option value="Eagles">Eagles</option>
+                        <option value="Los Angeles">Los Angeles</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="team2">Equipo 2 *</label>
+                    <select id="team2" required>
+                        <option value="">Selecciona un equipo...</option>
+                        <option value="I. Americano">I. Americano</option>
+                        <option value="Ilussion">Ilussion</option>
+                        <option value="Salesianos Don Bosco">Salesianos Don Bosco</option>
+                        <option value="Black Mamba">Black Mamba</option>
+                        <option value="Olimpic">Olimpic</option>
+                        <option value="Atletas de Cristo">Atletas de Cristo</option>
+                        <option value="Sallor Atenas">Sallor Atenas</option>
+                        <option value="Atletico Obrero">Atletico Obrero</option>
+                        <option value="Eagles">Eagles</option>
+                        <option value="Los Angeles">Los Angeles</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="date">Fecha *</label>
+                    <input type="date" id="date" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="time">Hora *</label>
+                    <input type="time" id="time" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="venue">Cancha *</label>
+                    <select id="venue" required>
+                        <option value="">Selecciona una cancha...</option>
+                        <option value="Israel Aviles (Aux. C)">Israel Aviles (Aux. C)</option>
+                        <option value="Coliseo Grover Suarez">Coliseo Grover Suarez</option>
+                        <option value="Casimiro Vargas">Casimiro Vargas</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="category">Categoría *</label>
+                    <select id="category" required>
+                        <option value="">Selecciona una categoría...</option>
+                        <option value="1RA DE ASCENSO VARONES">1RA DE ASCENSO VARONES</option>
+                        <option value="2DA DE ASCENSO DAMAS">2DA DE ASCENSO DAMAS</option>
+                        <option value="INFANTIL VARONES">INFANTIL VARONES</option>
+                        <option value="INFANTIL DAMAS">INFANTIL DAMAS</option>
+                        <option value="JUVENIL VARONES">JUVENIL VARONES</option>
+                        <option value="JUVENIL DAMAS">JUVENIL DAMAS</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button type="submit" class="btn-add">➕ Agregar Fixture</button>
+                <button type="reset" class="btn-reset">🔄 Limpiar Formulario</button>
+            </div>
+        </form>
+
+        <div class="success-message" id="successMessage">
+            ✅ Fixture agregado correctamente
+        </div>
+
+        <div class="output-section">
+            <h2>📋 Fixtures Agregados</h2>
+            <div id="fixturesList"></div>
+
+            <div class="button-group" style="margin-top: 15px;">
+                <button class="btn-copy" onclick="copiarJSON()">📋 Copiar JSON</button>
+                <button class="btn-download" onclick="descargarJSON()">⬇️ Descargar JSON</button>
+            </div>
+
+            <h2 style="margin-top: 20px;">📝 Preview del JSON</h2>
+            <textarea id="jsonOutput" readonly></textarea>
+        </div>
+    </div>
+
+    <script>
+        // Mapeo de equipos a logos
+        const teamLogos = {
+            'I. Americano': 'IA',
+            'Ilussion': 'IL',
+            'Salesianos Don Bosco': 'SDB',
+            'Black Mamba': 'BM',
+            'Olimpic': 'OL',
+            'Atletas de Cristo': 'AC',
+            'Sallor Atenas': 'SA',
+            'Atletico Obrero': 'AO',
+            'Eagles': 'EA',
+            'Los Angeles': 'LA'
+        };
+
+        let fixtures = [];
+        let nextId = 1;
+
+        // Cargar ID siguiente desde data.json existente
+        async function loadNextId() {
+            try {
+                const response = await fetch('data.json');
+                const data = await response.json();
+                if (data.fixtures && data.fixtures.length > 0) {
+                    nextId = Math.max(...data.fixtures.map(f => f.id)) + 1;
+                }
+            } catch (e) {
+                nextId = 1;
+            }
+        }
+
+        loadNextId();
+
+        // Manejar el formulario
+        document.getElementById('fixtureForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const team1 = document.getElementById('team1').value;
+            const team2 = document.getElementById('team2').value;
+
+            if (team1 === team2) {
+                alert('⚠️ Los dos equipos no pueden ser iguales');
+                return;
+            }
+
+            const fixture = {
+                id: nextId++,
+                team1: team1,
+                team2: team2,
+                date: document.getElementById('date').value,
+                time: document.getElementById('time').value,
+                venue: document.getElementById('venue').value,
+                category: document.getElementById('category').value,
+                logo1: teamLogos[team1] || team1.substring(0, 2).toUpperCase(),
+                logo2: teamLogos[team2] || team2.substring(0, 2).toUpperCase()
+            };
+
+            fixtures.push(fixture);
+            this.reset();
+
+            // Mostrar mensaje de éxito
+            const msg = document.getElementById('successMessage');
+            msg.style.display = 'block';
+            setTimeout(() => msg.style.display = 'none', 3000);
+
+            actualizarVista();
+        });
+
+        function actualizarVista() {
+            const lista = document.getElementById('fixturesList');
+            lista.innerHTML = '';
+
+            if (fixtures.length === 0) {
+                lista.innerHTML = '<p style="color: #999; text-align: center;">No hay fixtures agregados aún</p>';
+                document.getElementById('jsonOutput').value = '';
+                return;
+            }
+
+            fixtures.forEach((fixture, index) => {
+                const div = document.createElement('div');
+                div.className = 'fixture-item';
+                div.innerHTML = `
+                    <div class="fixture-item-info">
+                        <div class="fixture-item-teams">${fixture.team1} vs ${fixture.team2}</div>
+                        <div class="fixture-item-details">
+                            📅 ${fixture.date} ⏰ ${fixture.time} | 📍 ${fixture.venue} | ${fixture.category}
+                        </div>
+                    </div>
+                    <button type="button" class="btn-delete" onclick="eliminarFixture(${index})">Eliminar</button>
+                `;
+                lista.appendChild(div);
+            });
+
+            // Actualizar JSON
+            const jsonData = { fixtures: fixtures };
+            document.getElementById('jsonOutput').value = JSON.stringify(jsonData, null, 2);
+        }
+
+        function eliminarFixture(index) {
+            if (confirm('¿Eliminar este fixture?')) {
+                fixtures.splice(index, 1);
+                actualizarVista();
+            }
+        }
+
+        function copiarJSON() {
+            const jsonText = document.getElementById('jsonOutput').value;
+            if (!jsonText.trim()) {
+                alert('⚠️ No hay fixtures para copiar');
+                return;
+            }
+            navigator.clipboard.writeText(jsonText).then(() => {
+                alert('✅ JSON copiado al portapapeles');
+            }).catch(() => {
+                alert('❌ Error al copiar');
+            });
+        }
+
+        function descargarJSON() {
+            const jsonText = document.getElementById('jsonOutput').value;
+            if (!jsonText.trim()) {
+                alert('⚠️ No hay fixtures para descargar');
+                return;
+            }
+            const blob = new Blob([jsonText], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `fixtures_${new Date().getTime()}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>
