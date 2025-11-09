@@ -14,13 +14,22 @@
         </div>
 
         <div class="tabs">
-            <button class="tab-btn active" onclick="showTab('fixtures')">Próximos Partidos</button>
+            <button class="tab-btn active" onclick="showTab('news')">Noticias</button>
+            <button class="tab-btn" onclick="showTab('fixtures')">Próximos Partidos</button>
             <button class="tab-btn" onclick="showTab('teams')">Equipos</button>
-            <button class="tab-btn" onclick="showTab('news')">Noticias</button>
         </div>
+        
 
+        <!-- Tab: News -->
+        <div id="news" class="tab-content active">
+            <div class="section-title">Noticias</div>
+            <div id="news-list" class="news-container">
+                <div class="no-data">Cargando datos...</div>
+            </div>
+        </div>
+        
         <!-- Tab: Fixtures -->
-        <div id="fixtures" class="tab-content active">
+        <div id="fixtures" class="tab-content">
             <div class="section-title">Próximos Partidos</div>
             <div id="fixtures-list" class="fixtures-container">
                 <div class="no-data">Cargando datos...</div>
@@ -36,7 +45,7 @@
         </div>
 
         <!-- Tab: News -->
-        <div id="news" class="tab-content">
+        <div id="news" class="tab-content active">
             <div class="section-title">Noticias</div>
             <div id="news-list" class="news-container">
                 <div class="no-data">Cargando datos...</div>
