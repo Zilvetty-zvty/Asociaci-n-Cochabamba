@@ -143,52 +143,31 @@ function renderTeams() {
     `).join('');
 }
 
-// Renderizar Posiciones
-function renderStandings() {
-    const container = document.getElementById('standings-list');
+// Renderizar Noticias
+function renderNews() {
+    const container = document.getElementById('news-list');
     
-    if (!data.standings || data.standings.length === 0) {
-        container.innerHTML = '<div class="no-data">No hay datos de posiciones</div>';
+    if (!teamsData.news || teamsData.news.length === 0) {
+        container.innerHTML = '<div class="no-data">No hay noticias disponibles</div>';
         return;
     }
 
-    const tableHTML = `
-        <div class="standings-table">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Pos</th>
-                        <th>Equipo</th>
-                        <th>PJ</th>
-                        <th>G</th>
-                        <th>P</th>
-                        <th>Pts</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    ${data.standings.map(team => `
-                        <tr>
-                            <td class="stat-number">${team.position}</td>
-                            <td class="team-name-cell">${team.team}</td>
-                            <td class="stat-number">${team.played}</td>
-                            <td class="stat-number">${team.wins}</td>
-                            <td class="stat-number">${team.losses}</td>
-                            <td class="stat-number" style="font-weight: bold; color: #667eea;">${team.points}</td>
-                        </tr>
-                    `).join('')}
-                </tbody>
-            </table>
+    container.innerHTML = teamsData.news.map(news => `
+        <div class="news-card">
+            <div class="news-date">${formatDate(news.date)}</div>
+            <h3 class="news-title">${news.title}</h3>
+            ${news.image ? `<img src="${news.image}" alt="${news.title}" class="news-image">` : ''}
+            <p class="news-content">${news.content}</p>
+            ${news.author ? `<div class="news-author">Por: ${news.author}</div>` : ''}
         </div>
-    `;
-    
-    container.innerHTML = tableHTML;
+    `).join('');
 }
 
 // Inicializar la página
 function init() {
     renderFixtures();
     renderTeams();
-    renderStandings();
+    renderNews();
 }
 
 // Cargar datos cuando el DOM esté listo

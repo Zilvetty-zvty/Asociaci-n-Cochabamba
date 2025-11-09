@@ -132,39 +132,6 @@
       "logo1": "LC",
       "logo2": "logos/sallor.jpg"
     }
-  ],
-  "standings": [
-    {
-      "position": 1,
-      "team": "I. Americano",
-      "played": 8,
-      "wins": 7,
-      "losses": 1,
-      "points": 14
-    },
-    {
-      "position": 2,
-      "team": "Olimpic",
-      "played": 8,
-      "wins": 6,
-      "losses": 2,
-      "points": 12
-    },
-    {
-      "position": 3,
-      "team": "Salesianos Don Bosco",
-      "played": 8,
-      "wins": 5,
-      "losses": 3,
-      "points": 10
-    },
-    {
-      "position": 4,
-      "team": "Black Mamba",
-      "played": 8,
-      "wins": 3,
-      "losses": 5,
-      "points": 6
-    }
   ]
+
 }
