@@ -140,11 +140,8 @@ function renderTeams() {
                     <span class="detail-value">${team.categories ? team.categories.join(', ') : 'N/A'}</span>
                 </div>
                 <div class="detail-item">
-                    <span class="detail-label">Jugadores:</span>
-                    <span class="detail-value">${team.players || 'N/A'}</span>
                 </div>
             </div>
-            ${team.description ? `<div class="team-card-description">${team.description}</div>` : ''}
         </div>
     `).join('');
 }

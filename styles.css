@@ -6,7 +6,7 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, white 0%, rgb(218, 119, 7) 100%);
+    background: linear-gradient(135deg, rgb(77, 62, 62) 0%, rgb(218, 119, 7) 100%);
     min-height: 100vh;
     padding: 20px;
 }
@@ -18,8 +18,16 @@ body {
 
 .header {
     text-align: center;
-    color: white;
+    color: black;
     margin-bottom: 40px;
+}
+
+.header-logo {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    margin-bottom: 20px;
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
 }
 
 .header h1 {
@@ -61,7 +69,7 @@ body {
 
 .tab-btn.active {
     background-color: white;
-    color: #667eea;
+    color: orange;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
@@ -128,7 +136,8 @@ body {
 }
 
 .fixture-card {
-    background: white;
+    background: linear-gradient(135deg, rgb(77, 62, 62) 0%, rgb(218, 119, 7) 100%);
+    border: 3px solid #da7707;
     border-radius: 15px;
     padding: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
@@ -168,8 +177,8 @@ body {
 
 .fixture-time {
     text-align: center;
-    color: #666;
-    font-size: 0.85em;
+    color: white;
+    font-size: 2em;
     margin-bottom: 15px;
 }
 
@@ -237,7 +246,8 @@ body {
 }
 
 .team-card {
-    background: white;
+    background: linear-gradient(135deg, rgba(219, 202, 202, 0.8) 0%, rgba(218, 119, 7, 0.8) 100%);
+    backdrop-filter: blur(10px);
     border-radius: 15px;
     padding: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
