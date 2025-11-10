@@ -229,10 +229,10 @@
 </head>
 <body>
     <div class="container">
-        <h1>⚽ Agregar Fixtures</h1>
+        <h1>Agregar Fixtures</h1>
 
         <div class="info-box">
-            ℹ️ Completa el formulario para agregar un nuevo fixture. Luego podrás descargar el JSON o copiar el código para pegar en data.json.
+            Completa el formulario para agregar un nuevo fixture. Luego podrás descargar el JSON o copiar el código para pegar en data.json.
         </div>
 
         <form id="fixtureForm">
@@ -306,25 +306,25 @@
             </div>
 
             <div class="button-group">
-                <button type="submit" class="btn-add">➕ Agregar Fixture</button>
-                <button type="reset" class="btn-reset">🔄 Limpiar Formulario</button>
+                <button type="submit" class="btn-add">Agregar Fixture</button>
+                <button type="reset" class="btn-reset">Limpiar Formulario</button>
             </div>
         </form>
 
         <div class="success-message" id="successMessage">
-            ✅ Fixture agregado correctamente
+            Fixture agregado correctamente
         </div>
 
         <div class="output-section">
-            <h2>📋 Fixtures Agregados</h2>
+            <h2>Fixtures Agregados</h2>
             <div id="fixturesList"></div>
 
             <div class="button-group" style="margin-top: 15px;">
-                <button class="btn-copy" onclick="copiarJSON()">📋 Copiar JSON</button>
-                <button class="btn-download" onclick="descargarJSON()">⬇️ Descargar JSON</button>
+                <button class="btn-copy" onclick="copiarJSON()">Copiar JSON</button>
+                <button class="btn-download" onclick="descargarJSON()">Descargar JSON</button>
             </div>
 
-            <h2 style="margin-top: 20px;">📝 Preview del JSON</h2>
+            <h2 style="margin-top: 20px;">Preview del JSON</h2>
             <textarea id="jsonOutput" readonly></textarea>
         </div>
     </div>
@@ -338,7 +338,7 @@
             'Black Mamba': 'BM',
             'Olimpic': 'OL',
             'Atletas de Cristo': 'AC',
-            'Sallor Atenas': 'SA',
+            'Sallor Atenas': 'logos/sallor.jpg',
             'Atletico Obrero': 'AO',
             'Eagles': 'EA',
             'Los Angeles': 'LA'
@@ -370,7 +370,7 @@
             const team2 = document.getElementById('team2').value;
 
             if (team1 === team2) {
-                alert('⚠️ Los dos equipos no pueden ser iguales');
+                alert('Los dos equipos no pueden ser iguales');
                 return;
             }
 
@@ -414,7 +414,7 @@
                     <div class="fixture-item-info">
                         <div class="fixture-item-teams">${fixture.team1} vs ${fixture.team2}</div>
                         <div class="fixture-item-details">
-                            📅 ${fixture.date} ⏰ ${fixture.time} | 📍 ${fixture.venue} | ${fixture.category}
+                            ${fixture.date} ${fixture.time} | ${fixture.venue} | ${fixture.category}
                         </div>
                     </div>
                     <button type="button" class="btn-delete" onclick="eliminarFixture(${index})">Eliminar</button>
@@ -437,20 +437,20 @@
         function copiarJSON() {
             const jsonText = document.getElementById('jsonOutput').value;
             if (!jsonText.trim()) {
-                alert('⚠️ No hay fixtures para copiar');
+                alert('No hay fixtures para copiar');
                 return;
             }
             navigator.clipboard.writeText(jsonText).then(() => {
-                alert('✅ JSON copiado al portapapeles');
+                alert('JSON copiado al portapapeles');
             }).catch(() => {
-                alert('❌ Error al copiar');
+                alert('Error al copiar');
             });
         }
 
         function descargarJSON() {
             const jsonText = document.getElementById('jsonOutput').value;
             if (!jsonText.trim()) {
-                alert('⚠️ No hay fixtures para descargar');
+                alert('No hay fixtures para descargar');
                 return;
             }
             const blob = new Blob([jsonText], { type: 'application/json' });

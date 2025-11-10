@@ -87,12 +87,12 @@ function renderFixtures() {
     // Generar HTML con secciones por cancha
     let html = '';
     Object.keys(fixturesByVenue).forEach(venue => {
-        html += `<div class="venue-section"><h3>📍 ${venue}</h3>`;
+        html += `<div class="venue-section"><h3>${venue}</h3>`;
         html += fixturesByVenue[venue].map(fixture => `
             <div class="fixture-card">
                 <div class="fixture-date">${formatDate(fixture.date)}</div>
-                <div class="fixture-category">🏆 ${fixture.category}</div>
-                <div class="fixture-time">⏰ ${fixture.time}</div>
+                <div class="fixture-category">${fixture.category}</div>
+                <div class="fixture-time">${fixture.time}</div>
                 <div class="teams">
                     <div class="team">
                         <div class="team-logo">${renderLogo(fixture.logo1)}</div>
@@ -127,7 +127,7 @@ function renderTeams() {
                 <div class="team-card-logo">${renderLogo(team.logo)}</div>
                 <div class="team-card-info">
                     <h3 class="team-card-name">${team.name}</h3>
-                    <p class="team-card-city">📍 ${team.city}</p>
+                    <p class="team-card-city">${team.city}</p>
                 </div>
             </div>
             <div class="team-card-details">
