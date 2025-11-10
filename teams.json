@@ -15,7 +15,7 @@
       "logo": "IL",
       "coach": "Carlos Mendez",
       "categories": ["1RA DE ASCENSO VARONES"]
-          },
+    },
     {
       "id": 3,
       "name": "Salesianos Don Bosco",
@@ -63,7 +63,6 @@
       "logo": "AO",
       "coach": "Marco Gutierrez",
       "categories": ["3RA DE ASCENSO DAMAS"]
-    
     },
     {
       "id": 9,
@@ -72,7 +71,7 @@
       "logo": "EG",
       "coach": "Diego Ortiz",
       "categories": ["JUVENIL VARONES COPA ORO"]
-      },
+    },
     {
       "id": 10,
       "name": "Los Angeles",
@@ -80,7 +79,150 @@
       "logo": "LA",
       "coach": "Rosa Flores",
       "categories": ["3RA DE ASCENSO DAMAS"]
-      
+    },
+    {
+      "id": 11,
+      "name": "Yugoslavia",
+      "city": "Cochabamba",
+      "logo": "YG",
+      "coach": "Por asignar",
+      "categories": ["JUVENIL VARONES COPA ORO", "3RA DE ASCENSO VARONES"]
+    },
+    {
+      "id": 12,
+      "name": "Mineiro",
+      "city": "Cochabamba",
+      "logo": "MN",
+      "coach": "Por asignar",
+      "categories": ["3RA DE ASCENSO DAMAS"]
+    },
+    {
+      "id": 13,
+      "name": "Bethesda",
+      "city": "Cochabamba",
+      "logo": "BT",
+      "coach": "Por asignar",
+      "categories": ["2DA DE ASCENSO DAMAS"]
+    },
+    {
+      "id": 14,
+      "name": "Lagartos",
+      "city": "Cochabamba",
+      "logo": "LG",
+      "coach": "Por asignar",
+      "categories": ["JUVENIL VARONES COPA ORO"]
+    },
+    {
+      "id": 15,
+      "name": "Unitepc",
+      "city": "Cochabamba",
+      "logo": "UT",
+      "coach": "Por asignar",
+      "categories": ["3RA DE ASCENSO DAMAS"]
+    },
+    {
+      "id": 16,
+      "name": "Unifranz",
+      "city": "Cochabamba",
+      "logo": "UF",
+      "coach": "Por asignar",
+      "categories": ["3RA DE ASCENSO VARONES"]
+    },
+    {
+      "id": 17,
+      "name": "Leones Cochabamba",
+      "city": "Cochabamba",
+      "logo": "LC",
+      "coach": "Por asignar",
+      "categories": ["3RA DE ASCENSO VARONES"]
+    },
+    {
+      "id": 18,
+      "name": "Linces U",
+      "city": "Cochabamba",
+      "logo": "LU",
+      "coach": "Por asignar",
+      "categories": ["JUVENIL VARONES"]
+    },
+    {
+      "id": 19,
+      "name": "Catolica",
+      "city": "Cochabamba",
+      "logo": "CT",
+      "coach": "Por asignar",
+      "categories": ["JUVENIL VARONES"]
+    },
+    {
+      "id": 20,
+      "name": "Bayer",
+      "city": "Cochabamba",
+      "logo": "BY",
+      "coach": "Por asignar",
+      "categories": ["1RA DE ASCENSO VARONES"]
+    },
+    {
+      "id": 21,
+      "name": "San Rafael",
+      "city": "Cochabamba",
+      "logo": "SR",
+      "coach": "Por asignar",
+      "categories": ["JUVENIL VARONES"]
+    },
+    {
+      "id": 22,
+      "name": "U. San Simon",
+      "city": "Cochabamba",
+      "logo": "USS",
+      "coach": "Por asignar",
+      "categories": ["INFANTIL VARONES"]
+    },
+    {
+      "id": 23,
+      "name": "Fenix",
+      "city": "Cochabamba",
+      "logo": "FX",
+      "coach": "Por asignar",
+      "categories": ["INFANTIL DAMAS"]
+    },
+    {
+      "id": 24,
+      "name": "UPAL Liga Sud",
+      "city": "Cochabamba",
+      "logo": "ULS",
+      "coach": "Por asignar",
+      "categories": ["3RA DE ASCENSO DAMAS"]
+    },
+    {
+      "id": 25,
+      "name": "Colab",
+      "city": "Cochabamba",
+      "logo": "CL",
+      "coach": "Por asignar",
+      "categories": ["2DA DE ASCENSO VARONES"]
+    },
+    {
+      "id": 26,
+      "name": "Filadelfia Spartans",
+      "city": "Cochabamba",
+      "logo": "FS",
+      "coach": "Por asignar",
+      "categories": ["JUVENIL DAMAS"]
+    },
+    {
+      "id": 27,
+      "name": "Bamin",
+      "city": "Cochabamba",
+      "logo": "BM",
+      "coach": "Por asignar",
+      "categories": ["1RA DE ASCENSO DAMAS"]
+    },
+    {
+      "id": 28,
+      "name": "Andino Vikingos",
+      "city": "Cochabamba",
+      "logo": "AV",
+      "coach": "Por asignar",
+      "categories": ["HONOR VARONES"]
     }
   ]
 }
