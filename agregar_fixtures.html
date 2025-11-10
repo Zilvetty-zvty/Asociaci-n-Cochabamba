@@ -229,10 +229,10 @@
 </head>
 <body>
     <div class="container">
-        <h1>⚽ Agregar Fixtures</h1>
+        <h1>Agregar Fixtures</h1>
 
         <div class="info-box">
-            ℹ️ Completa el formulario para agregar un nuevo fixture. Luego podrás descargar el JSON o copiar el código para pegar en data.json.
+            Completa el formulario para agregar un nuevo fixture. Luego podrás descargar el JSON o copiar el código para pegar en data.json.
         </div>
 
         <form id="fixtureForm">
@@ -251,6 +251,24 @@
                         <option value="Atletico Obrero">Atletico Obrero</option>
                         <option value="Eagles">Eagles</option>
                         <option value="Los Angeles">Los Angeles</option>
+                        <option value="Yugoslavia">Yugoslavia</option>
+                        <option value="Mineiro">Mineiro</option>
+                        <option value="Bethesda">Bethesda</option>
+                        <option value="Lagartos">Lagartos</option>
+                        <option value="Unitepc">Unitepc</option>
+                        <option value="Unifranz">Unifranz</option>
+                        <option value="Leones Cochabamba">Leones Cochabamba</option>
+                        <option value="Linces U">Linces U</option>
+                        <option value="Catolica">Catolica</option>
+                        <option value="Bayer">Bayer</option>
+                        <option value="San Rafael">San Rafael</option>
+                        <option value="U. San Simon">U. San Simon</option>
+                        <option value="Fenix">Fenix</option>
+                        <option value="UPAL Liga Sud">UPAL Liga Sud</option>
+                        <option value="Colab">Colab</option>
+                        <option value="Filadelfia Spartans">Filadelfia Spartans</option>
+                        <option value="Bamin">Bamin</option>
+                        <option value="Andino Vikingos">Andino Vikingos</option>
                     </select>
                 </div>
 
@@ -268,6 +286,24 @@
                         <option value="Atletico Obrero">Atletico Obrero</option>
                         <option value="Eagles">Eagles</option>
                         <option value="Los Angeles">Los Angeles</option>
+                        <option value="Yugoslavia">Yugoslavia</option>
+                        <option value="Mineiro">Mineiro</option>
+                        <option value="Bethesda">Bethesda</option>
+                        <option value="Lagartos">Lagartos</option>
+                        <option value="Unitepc">Unitepc</option>
+                        <option value="Unifranz">Unifranz</option>
+                        <option value="Leones Cochabamba">Leones Cochabamba</option>
+                        <option value="Linces U">Linces U</option>
+                        <option value="Catolica">Catolica</option>
+                        <option value="Bayer">Bayer</option>
+                        <option value="San Rafael">San Rafael</option>
+                        <option value="U. San Simon">U. San Simon</option>
+                        <option value="Fenix">Fenix</option>
+                        <option value="UPAL Liga Sud">UPAL Liga Sud</option>
+                        <option value="Colab">Colab</option>
+                        <option value="Filadelfia Spartans">Filadelfia Spartans</option>
+                        <option value="Bamin">Bamin</option>
+                        <option value="Andino Vikingos">Andino Vikingos</option>
                     </select>
                 </div>
 
@@ -285,9 +321,10 @@
                     <label for="venue">Cancha *</label>
                     <select id="venue" required>
                         <option value="">Selecciona una cancha...</option>
-                        <option value="Israel Aviles (Aux. C)">Israel Aviles (Aux. C)</option>
                         <option value="Coliseo Grover Suarez">Coliseo Grover Suarez</option>
                         <option value="Casimiro Vargas">Casimiro Vargas</option>
+                        <option value="Marcelo Ugarte (Aux. A)">Marcelo Ugarte (Aux. A)</option>
+                        <option value="Israel Aviles (Aux. C)">Israel Aviles (Aux. C)</option>
                     </select>
                 </div>
 
@@ -296,35 +333,43 @@
                     <select id="category" required>
                         <option value="">Selecciona una categoría...</option>
                         <option value="1RA DE ASCENSO VARONES">1RA DE ASCENSO VARONES</option>
+                        <option value="1RA DE ASCENSO DAMAS">1RA DE ASCENSO DAMAS</option>
+                        <option value="2DA DE ASCENSO VARONES">2DA DE ASCENSO VARONES</option>
                         <option value="2DA DE ASCENSO DAMAS">2DA DE ASCENSO DAMAS</option>
+                        <option value="3RA DE ASCENSO VARONES">3RA DE ASCENSO VARONES</option>
+                        <option value="3RA DE ASCENSO DAMAS">3RA DE ASCENSO DAMAS</option>
+                        <option value="HONOR VARONES">HONOR VARONES</option>
                         <option value="INFANTIL VARONES">INFANTIL VARONES</option>
                         <option value="INFANTIL DAMAS">INFANTIL DAMAS</option>
                         <option value="JUVENIL VARONES">JUVENIL VARONES</option>
+                        <option value="JUVENIL VARONES COPA ORO">JUVENIL VARONES COPA ORO</option>
                         <option value="JUVENIL DAMAS">JUVENIL DAMAS</option>
+                        <option value="U22 VARONES">U22 VARONES</option>
+                        <option value="U22 DAMAS">U22 DAMAS</option>
                     </select>
                 </div>
             </div>
 
             <div class="button-group">
-                <button type="submit" class="btn-add">➕ Agregar Fixture</button>
-                <button type="reset" class="btn-reset">🔄 Limpiar Formulario</button>
+                <button type="submit" class="btn-add">Agregar Fixture</button>
+                <button type="reset" class="btn-reset">Limpiar Formulario</button>
             </div>
         </form>
 
         <div class="success-message" id="successMessage">
-            ✅ Fixture agregado correctamente
+            Fixture agregado correctamente
         </div>
 
         <div class="output-section">
-            <h2>📋 Fixtures Agregados</h2>
+            <h2>Fixtures Agregados</h2>
             <div id="fixturesList"></div>
 
             <div class="button-group" style="margin-top: 15px;">
-                <button class="btn-copy" onclick="copiarJSON()">📋 Copiar JSON</button>
-                <button class="btn-download" onclick="descargarJSON()">⬇️ Descargar JSON</button>
+                <button class="btn-copy" onclick="copiarJSON()">Copiar JSON</button>
+                <button class="btn-download" onclick="descargarJSON()">Descargar JSON</button>
             </div>
 
-            <h2 style="margin-top: 20px;">📝 Preview del JSON</h2>
+            <h2 style="margin-top: 20px;">Preview del JSON</h2>
             <textarea id="jsonOutput" readonly></textarea>
         </div>
     </div>
@@ -338,10 +383,28 @@
             'Black Mamba': 'BM',
             'Olimpic': 'OL',
             'Atletas de Cristo': 'AC',
-            'Sallor Atenas': 'SA',
+            'Sallor Atenas': 'logos/sallor.jpg',
             'Atletico Obrero': 'AO',
             'Eagles': 'EA',
-            'Los Angeles': 'LA'
+            'Los Angeles': 'LA',
+            'Yugoslavia': 'YG',
+            'Mineiro': 'MN',
+            'Bethesda': 'BT',
+            'Lagartos': 'LG',
+            'Unitepc': 'UT',
+            'Unifranz': 'UF',
+            'Leones Cochabamba': 'LC',
+            'Linces U': 'LU',
+            'Catolica': 'CT',
+            'Bayer': 'BY',
+            'San Rafael': 'SR',
+            'U. San Simon': 'USS',
+            'Fenix': 'FX',
+            'UPAL Liga Sud': 'ULS',
+            'Colab': 'CL',
+            'Filadelfia Spartans': 'FS',
+            'Bamin': 'BM',
+            'Andino Vikingos': 'AV'
         };
 
         let fixtures = [];
@@ -370,7 +433,7 @@
             const team2 = document.getElementById('team2').value;
 
             if (team1 === team2) {
-                alert('⚠️ Los dos equipos no pueden ser iguales');
+                alert('Los dos equipos no pueden ser iguales');
                 return;
             }
 
@@ -414,7 +477,7 @@
                     <div class="fixture-item-info">
                         <div class="fixture-item-teams">${fixture.team1} vs ${fixture.team2}</div>
                         <div class="fixture-item-details">
-                            📅 ${fixture.date} ⏰ ${fixture.time} | 📍 ${fixture.venue} | ${fixture.category}
+                            ${fixture.date} ${fixture.time} | ${fixture.venue} | ${fixture.category}
                         </div>
                     </div>
                     <button type="button" class="btn-delete" onclick="eliminarFixture(${index})">Eliminar</button>
@@ -437,20 +500,20 @@
         function copiarJSON() {
             const jsonText = document.getElementById('jsonOutput').value;
             if (!jsonText.trim()) {
-                alert('⚠️ No hay fixtures para copiar');
+                alert('No hay fixtures para copiar');
                 return;
             }
             navigator.clipboard.writeText(jsonText).then(() => {
-                alert('✅ JSON copiado al portapapeles');
+                alert('JSON copiado al portapapeles');
             }).catch(() => {
-                alert('❌ Error al copiar');
+                alert('Error al copiar');
             });
         }
 
         function descargarJSON() {
             const jsonText = document.getElementById('jsonOutput').value;
             if (!jsonText.trim()) {
-                alert('⚠️ No hay fixtures para descargar');
+                alert('No hay fixtures para descargar');
                 return;
             }
             const blob = new Blob([jsonText], { type: 'application/json' });
